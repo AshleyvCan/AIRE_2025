@@ -22,11 +22,15 @@ The prompts used in our experiments:
 
 The `run_llm_batch.py` is used to execute the formulated prompts, using a pre-defined batch size value. Use the following template to run the script:
 
+```
 python run_llm_batch.py <batchsize> <task letter: f or q> <dataset letter: l p or r
+```
 
 The post-processing steps are conducted using `extract_predictions.py`. Run this script after producing the LLM outputs and follow the template: 
 
+```
 python extract_predictions.py <task letter: f or q> <dataset letter: l, p, o or r> <model letter: ds7, ds14, llama or gemma>
+```
 
 To calculate F1-score, recall, precision and specificity, the `get_performances.py` can be used. This script should also produce a combined Excel file in which the predictions for all datasets per model are merged (which are needed for the qualitative analysis and the ensemble model).
 
