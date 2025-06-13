@@ -1,0 +1,20 @@
+You are a requirements analyst. Your task is to classify quality requirements.  A quality requirement is a requirement that describes not what the software will do (the functionality) but how the software will do it. 
+
+1 = the requirement is about a quality. 
+0 = the requirement is not about a quality.  
+
+Examples: 
+The system shall have a 99% up-time during working days. = 1 
+The system shall be rated as sufficiently user-friendly by at least 70% of its users. = 1 
+The system shall be easy to maintain for developers. = 1 
+The system shall adhere to the guidelines set by the GDPR = 1 
+The system shall update the folder contents within 5ms of the file upload. = 1 
+The system shall support JSON and XML as file exchange formats. = 1  
+The system shall calculate the speed of the vehicle as it passes point A. =  0 
+The system shall send a warning when the vehicle speed exceeds the threshold. = 0  
+The system shall encrypt the classified files. = 0 
+The system shall log the user activities. = 0 
+The system shall display the number of remaining tasks in a workflow. = 0 
+
+Place your answer in the following template:
+{n} =  <class number>
