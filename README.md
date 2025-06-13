@@ -1,4 +1,4 @@
-# Online Appendix of the paper "he Impact of Batch Size on LLM-Based Requirements Classification Performance"
+# Online Appendix of the paper "One Size Does Not Fit All: On the Role of Batch Size in Classifying Requirements with LLMs"
 
 In this paper, we assess the impact of the selected batch size on the performance of an LLM.
 The appendix contains two main folders: Tables and Experiments.
