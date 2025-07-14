@@ -80,7 +80,7 @@ def main(task, dataset, model):
 
 if __name__ == '__main__':
     if len(sys.argv) < 3:
-        print("Arguments are missing. Follow the template: python extract_predictions.py <task letter: f or q> <dataset letter: l, p, o or r> <model letter: ds7, ds14, llama or gemma>")
+        print("Arguments are missing. Follow the template: python extract_predictions.py <task letter: f or q> <dataset letter: l, p, o or r> <model letter: ds14, llama or gemma>")
     else:
         arg1 = sys.argv[1]
         arg2 = sys.argv[2]
