@@ -1,4 +1,3 @@
-#from huggingface_hub import InferenceClient
 import torch 
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 import sys
@@ -30,7 +29,7 @@ def main(stepsize, setting, dataset, m):
     elif dataset == 'p':
         df = pd.read_csv(dataset_path+'promise_sample.csv')
     elif dataset == 'o':
-        df = pd.read_csv('oappt_sample.csv')
+        df = pd.read_csv(dataset_path+'oappt_sample.csv')
     elif dataset == 'rds':
         df = pd.read_csv(dataset_path+'rds_sample.csv')
 

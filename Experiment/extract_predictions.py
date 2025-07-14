@@ -45,15 +45,7 @@ def main(task, dataset, model):
         df_all = pd.read_csv(dataset_path+'promise_sample.csv')
 
 
-    if task == 'f':
-        column_label = 'IsFunctional'
-    elif task == 'q':
-        column_label = 'IsQuality'
-
-    if model == 'ds7':
-        pred_folder = 'deepseek7/'
-        name_model = "deeps"
-    elif model == 'ds14':
+    if model == 'ds14':
         pred_folder = 'deepseek14/'
         name_model = "deeps"
     elif model == 'llama':
@@ -63,17 +55,13 @@ def main(task, dataset, model):
         pred_folder = 'gemma12/'
         name_model = "googl"
     
-    input_folder = 'llm_output/'
+    input_folder = 'output/'
     output_folder = 'final_predictions/'
     
     if not os.path.exists(output_folder+ pred_folder):
         os.makedirs(output_folder+ pred_folder)
 
     sizes = [1,2,4,8,16,32,64]
-
-    all_precision = []
-    all_recall = []
-    all_f1_score = []
 
     setting_name = '_'.join([name_model, task, dataset])
     for s in sizes:
@@ -86,18 +74,7 @@ def main(task, dataset, model):
         
         df_all = pd.merge(df_all, df_pred, left_index=True, right_index=True, how = 'left').fillna(-1)
         print(len(df_all['label_' + str(s)]))
-        precision = precision_score(df_all[column_label], df_all['label_' + str(s)], average=None, labels=[0, 1])
-        recall = recall_score(df_all[column_label], df_all['label_'+ str(s)], average=None, labels=[0, 1])
-        f1= f1_score(df_all[column_label], df_all['label_'+ str(s)], average= None, labels=[0, 1] )
 
-        all_precision.append({'size': s, 'precision_0': precision[0], 'precision_1': precision[1]})
-        all_recall.append({'size': s, 'recall_0': recall[0], 'recall_1': recall[1]})
-        all_f1_score.append({'size': s, 'f1_0': f1[0], 'f1_1': f1[1]})
-
-    pd.DataFrame(all_precision).to_excel(output_folder+pred_folder+setting_name+"_"+"precision.xlsx")
-    pd.DataFrame(all_recall).to_excel(output_folder+pred_folder+setting_name+"_"+"recall.xlsx")
-    pd.DataFrame(all_f1_score).to_excel(output_folder+pred_folder+setting_name+"_"+"f1_score.xlsx")
-    
     df_all.to_excel(output_folder+pred_folder+setting_name+"_"+"predictions.xlsx")
 
 
