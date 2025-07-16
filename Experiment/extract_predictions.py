@@ -3,15 +3,16 @@ import ast
 import os
 import re
 import sys
-from sklearn.metrics import precision_score, recall_score, f1_score
 
+
+# Locate the predictions using the expected format
 def get_pred(chat_output, size, output_num = 2):
     matches = re.findall(r'(\d+)\s*\.?\s*=\s*(\d+)\s*', chat_output[output_num]['content'])
 
     return [{'id': int(id_), 'label_'+ str(size): int(label)} for id_, label in matches], [id_ for id_, _ in matches]
 
+# Open the output files and extract the predictions from the files.
 def extract_results(files, output_folder_size, size):
-    data = []
     all_output = []
     for f_name in files:
         
@@ -32,8 +33,10 @@ def extract_results(files, output_folder_size, size):
     
     return df_pred
 
+
 def main(task, dataset, model):
 
+    # Open sample dataset
     dataset_path = "datasets/"
     if dataset == 'l':
         df_all = pd.read_csv(dataset_path+'leeds_sample.csv')
@@ -43,7 +46,6 @@ def main(task, dataset, model):
         df_all = pd.read_csv(dataset_path+'oappt_sample.csv')
     elif dataset == 'p':
         df_all = pd.read_csv(dataset_path+'promise_sample.csv')
-
 
     if model == 'ds14':
         pred_folder = 'deepseek14/'
@@ -64,6 +66,8 @@ def main(task, dataset, model):
     sizes = [1,2,4,8,16,32,64]
 
     setting_name = '_'.join([name_model, task, dataset])
+
+    # For each batch size, retrieve the predictions from the specified model, task, and dataset.
     for s in sizes:
         
         pred_folder_size =  '_'.join([str(s), setting_name])
@@ -75,6 +79,7 @@ def main(task, dataset, model):
         df_all = pd.merge(df_all, df_pred, left_index=True, right_index=True, how = 'left').fillna(-1)
         print(len(df_all['label_' + str(s)]))
 
+    # Export the predictions as an Excel file.
     df_all.to_excel(output_folder+pred_folder+setting_name+"_"+"predictions.xlsx")
 
 

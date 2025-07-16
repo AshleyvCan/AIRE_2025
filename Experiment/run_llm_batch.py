@@ -41,19 +41,18 @@ def main(stepsize, setting, dataset, m):
         model_id = "deepseek-ai/DeepSeek-R1-Distill-Qwen-14B"
 
     print(model_id)
-    tokenizer = AutoTokenizer.from_pretrained(model_id, token= '<token>',)
-    model = AutoModelForCausalLM.from_pretrained(model_id,token= '<token>'
-                                                 )
+    tokenizer = AutoTokenizer.from_pretrained(model_id, token= '<token>')
+    model = AutoModelForCausalLM.from_pretrained(model_id,token= '<token>')
+
     system_prompt = load_txt('prompt_system_' + setting + ".txt")
     user_prompt_1 = load_txt("prompt_user_1.txt")
     user_prompt_2 = load_txt("prompt_user_2.txt")
 
     output_dir = 'output/'
-
     n  = len(df)
-
     export_folder = output_dir + m +'/' + str(stepsize) + "_" + model_id[:5] +"_"+ setting + "_"+dataset+'/'
     
+    # Create an export folder if it does not already exist.
     if not os.path.exists(export_folder):
         os.makedirs(export_folder)
     
@@ -61,6 +60,8 @@ def main(stepsize, setting, dataset, m):
     model = model.to(device)
    
     all_reqs = [str(i) + ". " + row['RequirementText'] for i, row in df.iterrows()]
+
+    # For each batch of requirements, prompt the specified LLM to classify using the system and user prompts.
     for i in range(0,n,stepsize):
         if i+stepsize <= n:  
         
@@ -72,7 +73,6 @@ def main(stepsize, setting, dataset, m):
                 ]
         
             for j in range(2):
-
                 formatted_chat = tokenizer.apply_chat_template(message_history, tokenize=False, add_generation_prompt=True)
                 
                 inputs = tokenizer(formatted_chat, return_tensors="pt") 
@@ -92,7 +92,7 @@ def main(stepsize, setting, dataset, m):
         
 if __name__ == '__main__':
     if len(sys.argv) < 4:
-        print("Arguments are missing. Follow the template: python run_llm_batch.py <batchsize> <task letter: f or q> <dataset letter: l p or r> <model: llama gemma or ds>")
+        print("Arguments are missing. Follow the template: python run_llm_batch.py <batchsize> <task letter: f or q> <dataset letter: l p, o or r> <model: llama gemma or ds>")
     else:
         arg1 = sys.argv[1]
         arg2 = sys.argv[2]
