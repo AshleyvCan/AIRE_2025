@@ -91,7 +91,7 @@ def main(stepsize, setting, dataset, m):
 
         
 if __name__ == '__main__':
-    if len(sys.argv) < 4:
+    if len(sys.argv) < 5:
         print("Arguments are missing. Follow the template: python run_llm_batch.py <batchsize> <task letter: f or q> <dataset letter: l p, o or r> <model: llama gemma or ds>")
     else:
         arg1 = sys.argv[1]
