@@ -6,9 +6,9 @@ The appendix contains two main folders: Tables and Experiments.
 ## Folder: Tables 
 This folder contains the tables for comparing the models and qualitative analysis. In addition, this folder contains additional tables for a better understanding of the overall performance.
 
-`qualitative_analysis_tables.xlsx` presents the tables of the qualitative analysis
-`tables_performance_quality.xlsx` contains the data of table 6 to 8
-`tables_performance_functional.xlsx` contains the same data of table 6 to 8, but for the functional classification task.
+- `qualitative_analysis_tables.xlsx` presents the tables of the qualitative analysis
+- `tables_performance_quality.xlsx` contains the data of table 6 to 8
+- `tables_performance_functional.xlsx` contains the same data of table 6 to 8, but for the functional classification task.
 
 
 ## Folder: Experiment
